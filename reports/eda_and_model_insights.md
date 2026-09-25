@@ -173,3 +173,11 @@ CatBoost is the strongest candidate **within the reported experiment**, with one
 
 - **Implementation and saved outputs:** [src/notebook.ipynb](../src/notebook.ipynb). Counts after cleaning and final test metrics were checked against these outputs.
 - **Figures:** Images displayed in this report are PNG previews in [images/png](images/png), rendered from the original PDF files in [images](images). The original PDFs are unchanged.
+
+## Reference study and scope
+
+The reference study is Francisco Mesquita and Gonçalo Marques (2024), *An explainable machine learning approach for automated medical decision support of heart disease*, Data & Knowledge Engineering, 153, 102339. [Paper](https://doi.org/10.1016/j.datak.2024.102339) · [BibTeX](../references.bib).
+
+The metrics in this report describe this project's experiments, not a reproduction of every numerical result in the reference paper. The dataset label represents disease status rather than future event risk. No independent clinical validation or probability calibration study is reported. The project is intended for research and education.
+
+The [results folder](results/README.md) contains a CSV of the reported test metrics and instructions for exporting new runs.
