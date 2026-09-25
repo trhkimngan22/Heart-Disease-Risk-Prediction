@@ -143,13 +143,17 @@ Francisco Mesquita and Gonçalo Marques (2024). *An explainable machine learning
 This paper is the reference study for the project. The project results are documented separately in the [analysis report](reports/eda_and_model_insights.md). The citation is also available in [references.bib](references.bib).
 
 ```bibtex
-@article{2024-MLXAI,
-  author = {Francisco Mesquita and Gonçalo Marques},
+@article{MESQUITA2024102339,
+  title = {An explainable machine learning approach for automated medical decision support of heart disease},
   journal = {Data \& Knowledge Engineering},
   volume = {153},
   pages = {102339},
-  title = {An explainable machine learning approach for automated medical decision support of heart disease},
   year = {2024},
-  doi = {10.1016/j.datak.2024.102339}
+  issn = {0169-023X},
+  doi = {10.1016/j.datak.2024.102339},
+  url = {https://www.sciencedirect.com/science/article/pii/S0169023X24000636},
+  author = {Francisco Mesquita and Gonçalo Marques},
+  keywords = {Coronary heart disease, Disease prediction, Interpretation, Machine learning, SHAP method},
+  abstract = {Coronary Heart Disease (CHD) is the dominant cause of mortality around the world. Every year, it causes about 3.9 million deaths in Europe and 1.8 million in the European Union (EU). It is responsible for 45 \% and 37 \% of all deaths in Europe and the European Union, respectively. Using machine learning (ML) to predict heart diseases is one of the most promising research topics, as it can improve healthcare and consequently increase the longevity of people's lives. However, although the ability to interpret the results of the predictive model is essential, most of the related studies do not propose explainable methods. To address this problem, this paper presents a classification method that not only exhibits reliable performance but is also interpretable, ensuring transparency in its decision-making process. SHapley Additive exPlanations, known as the SHAP method was chosen for model interpretability. This approach presents a comparison between different classifiers and parameter tuning techniques, providing all the details necessary to replicate the experiment and help future researchers working in the field. The proposed model achieves similar performance to those proposed in the literature, and its predictions are fully interpretable.}
 }
 ```
