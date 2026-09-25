@@ -2,6 +2,56 @@
 
 A machine learning project for predicting heart disease risk, presented in a Jupyter Notebook.
 
+## Project overview
+
+The project compares seven classifiers, tunes Random Forest, CatBoost, and Extra Trees, and evaluates weighted voting and stacking. Recall is the main selection objective, with specificity, precision, F1-score, and ROC-AUC used to understand the trade-offs. SHAP is used to explain CatBoost predictions.
+
+```mermaid
+flowchart TD
+    A[Raw data and EDA] --> B[Remove duplicates and mark invalid values]
+    B --> C[Train, validation, and test split]
+    C --> D[Training folds: preprocessing and BorderlineSMOTE]
+    D --> E[Benchmark and tune models]
+    E --> F[Compare single models and ensembles]
+    F --> G[Test evaluation and statistical comparisons]
+    G --> H[Export results and interpret with SHAP]
+```
+
+## Reported results
+
+These are the saved experiment results, not results from a new local run.
+
+| Model | Accuracy | Recall | Specificity | F1-score | ROC-AUC |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| CatBoost | 0.9783 | 1.0000 | 0.9524 | 0.9804 | 0.9790 |
+| Random Forest | 0.9130 | 0.9200 | 0.9048 | 0.9200 | 0.9543 |
+| Weighted Ensemble | 0.9130 | 0.8800 | 0.9524 | 0.9167 | 0.9752 |
+| Stacking Ensemble | 0.9130 | 0.8800 | 0.9524 | 0.9167 | 0.9752 |
+| Extra Trees | 0.8478 | 0.8400 | 0.8571 | 0.8571 | 0.9581 |
+
+CatBoost detects all 25 positive test cases, with one false positive among 21 negative cases. See the [EDA and model discussion](reports/eda_and_model_insights.md) for figures, confidence intervals, and limitations, and the [results guide](reports/results/README.md) for downloadable metrics and exports.
+
+## Project structure
+
+```text
+.
+├── README.md
+├── requirements.txt
+├── setup_env.py
+├── references.bib
+├── data/
+│   ├── README.md
+│   └── heart_statlog_cleveland_hungary_final.csv
+├── src/
+│   └── notebook.ipynb
+└── reports/
+    ├── eda_and_model_insights.md
+    ├── images/                    # Original PDFs and PNG previews
+    └── results/                   # Reported metrics and exports from new runs
+```
+
+See the [dataset guide](data/README.md) for the source, feature definitions, label encoding, and cleaning steps.
+
 ## Before you start
 
 - Install Python. Python 3.12 was used in the notebook.
@@ -63,18 +113,43 @@ If it still does not appear, run **Developer: Reload Window** from the Command P
 
 ## 3. Run the notebook
 
-Run the cells from top to bottom. The notebook expects its working directory to be `src`, so it can load the dataset from:
+Run the cells from top to bottom. The notebook locates `data/heart_statlog_cleveland_hungary_final.csv` when started from either the project root or `src`.
 
-```text
-../data/heart_statlog_cleveland_hungary_final.csv
-```
+If you get a `FileNotFoundError`, check that the CSV is in the project's `data` folder and that the working directory is the project root or `src`.
 
-If you get a `FileNotFoundError`, check the working directory and make sure the CSV file is in the project's `data` folder.
+After model evaluation and ablation, the **Export experiment results** section saves metrics, tuning parameters, test predictions, split membership, and environment details under `reports/results/runs/<UTC timestamp>/`. See the [export guide](reports/results/README.md) for the file descriptions.
 
 > Note: This notebook was originally developed and run on Kaggle Notebooks. If you run it locally using the CPU of a personal computer or laptop, your results and execution time may differ from the saved Kaggle outputs because of differences in hardware, library versions, or numerical computations.
 
 ## Updating the environment
 
-Run `setup_env.py` again after adding libraries to `requirements.txt`. Library versions are not currently pinned, so new installations may use different versions.
+Run `setup_env.py` again after adding libraries to `requirements.txt`. Most direct dependencies are pinned in `requirements.txt`. Jupyter-related packages and transitive dependencies are not fully pinned, so fresh installations can still differ. Each experiment export records the installed package versions.
 
 If you move the project to another location, recreate `.venv` and run the setup script again.
+
+## Limitations and intended use
+
+This is a research and educational project, not a validated clinical decision tool. Its target is disease status in the dataset, not a calibrated estimate of future disease risk.
+
+- The test set has only 46 records. CatBoost's reported recall of 1.00 has a 95% confidence interval of approximately [0.867, 1.000].
+- Paired recall comparisons do not show significant differences after Holm correction. The best observed result does not establish general superiority.
+- The combined historical dataset and its demographic composition may not represent other populations. No external clinical validation is reported.
+- SHAP explains the model's predictions, not causal relationships. Global SHAP uses all 918 deduplicated records and is not an additional independent evaluation.
+
+## Reference
+
+Francisco Mesquita and Gonçalo Marques (2024). *An explainable machine learning approach for automated medical decision support of heart disease*. Data & Knowledge Engineering, 153, 102339. [Read the paper](https://doi.org/10.1016/j.datak.2024.102339).
+
+This paper is the reference study for the project. The project results are documented separately in the [analysis report](reports/eda_and_model_insights.md). The citation is also available in [references.bib](references.bib).
+
+```bibtex
+@article{2024-MLXAI,
+  author = {Francisco Mesquita and Gonçalo Marques},
+  journal = {Data \& Knowledge Engineering},
+  volume = {153},
+  pages = {102339},
+  title = {An explainable machine learning approach for automated medical decision support of heart disease},
+  year = {2024},
+  doi = {10.1016/j.datak.2024.102339}
+}
+```
